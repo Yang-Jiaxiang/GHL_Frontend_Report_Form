@@ -33,6 +33,9 @@ const Liver = () => {
     const [liverCancerUnknown, setLiverCancerUnknown] = useState(false); //肝腫瘤不明
     const [liverCancerUnknownLeftorRight, setLiverCancerUnknownLeftorRight] =
         useState(""); //肝腫瘤不明左或右
+
+    const [remark, setRemark] = useState(""); //其他
+
     //脂肪肝前方Checkbox辨識
     function FLDLevelhandleClick(event) {
         if (event.target.value === FLDLevel) {
@@ -101,10 +104,10 @@ const Liver = () => {
 
     return (
         <>
-            <table class="tg" border="1">
+            <table border="1">
                 <thead>
                     <tr>
-                        <td class="tg-0pky" rowspan="9">
+                        <td rowspan="9">
                             <Checkbox
                                 checked={normal}
                                 onChange={(event) => {
@@ -113,11 +116,15 @@ const Liver = () => {
                             />
                             正常
                         </td>
-                        <td class="tg-0pky" colspan="2">
+                        <td colspan="2">
                             <Checkbox
                                 checked={FLD}
                                 onChange={(event) => {
                                     setFLD(event.target.checked);
+                                }}
+                                onClick={() => {
+                                    setFLDLevel("");
+                                    setFLD(false);
                                 }}
                             />
                             脂肪肝
@@ -185,19 +192,23 @@ const Liver = () => {
                                 </RadioGroup>
                             </FormControl>
                         </td>
-                        <td class="tg-0lax" rowspan="4">
+                        <td rowspan="4">
                             <p>其他：</p>
                             <TextareaAutosize
                                 aria-label="minimum height"
                                 minRows={7}
                                 placeholder="Minimum 3 rows"
                                 style={{ width: 200 }}
+                                value={remark}
+                                onChange={(event) => {
+                                    setRemark(event.target.value);
+                                }}
                             />
                         </td>
                     </tr>
 
                     <tr>
-                        <td class="tg-0pky" colspan="2">
+                        <td colspan="2">
                             <Checkbox
                                 checked={suspectedLiverLesions}
                                 onChange={(event) => {
@@ -211,7 +222,7 @@ const Liver = () => {
                     </tr>
 
                     <tr>
-                        <td class="tg-0pky" colspan="2">
+                        <td colspan="2">
                             <Checkbox
                                 checked={liverLesions}
                                 onChange={(event) => {
@@ -223,7 +234,7 @@ const Liver = () => {
                     </tr>
 
                     <tr>
-                        <td class="tg-0pky" colspan="2">
+                        <td colspan="2">
                             <Checkbox
                                 checked={liverCirrohsis}
                                 onChange={(event) => {
@@ -235,16 +246,20 @@ const Liver = () => {
                     </tr>
 
                     <tr>
-                        <td class="tg-0pky">
+                        <td>
                             <Checkbox
                                 checked={liverHepaticCyst}
                                 onChange={(event) => {
                                     setLiverHepaticCyst(event.target.checked);
                                 }}
+                                onClick={() => {
+                                    setLiverHepaticCyst(false);
+                                    setLiverHepaticCystLeftorRight("");
+                                }}
                             />
                             肝囊腫
                         </td>
-                        <td class="tg-0pky" colspan="2">
+                        <td colspan="2">
                             <FormControl style={{ paddingLeft: 10 }}>
                                 <RadioGroup
                                     row
@@ -302,16 +317,20 @@ const Liver = () => {
                     </tr>
 
                     <tr>
-                        <td class="tg-0pky">
+                        <td>
                             <Checkbox
                                 checked={angiomas}
                                 onChange={(event) =>
                                     setAngiomas(event.target.checked)
                                 }
+                                onClick={() => {
+                                    setAngiomasLeftorRight("");
+                                    setAngiomas(false);
+                                }}
                             />
                             血管瘤
                         </td>
-                        <td class="tg-0pky" colspan="2">
+                        <td colspan="2">
                             <FormControl style={{ paddingLeft: 10 }}>
                                 <RadioGroup
                                     row
@@ -365,16 +384,22 @@ const Liver = () => {
                     </tr>
 
                     <tr>
-                        <td class="tg-0pky">
+                        <td>
                             <Checkbox
                                 checked={intrahepaticCalcification}
                                 onChange={(event) => {
-                                    setIntrahepaticCalcification(event.target.checked);
+                                    setIntrahepaticCalcification(
+                                        event.target.checked
+                                    );
+                                }}
+                                onClick={() => {
+                                    setIntrahepaticCalcification(false);
+                                    setIntrahepaticCalcificationLeftorRight("");
                                 }}
                             />
                             肝內鈣化點
                         </td>
-                        <td class="tg-0pky" colspan="2">
+                        <td colspan="2">
                             <FormControl style={{ paddingLeft: 10 }}>
                                 <RadioGroup
                                     row
@@ -398,7 +423,7 @@ const Liver = () => {
                                             />
                                         }
                                         label="左葉"
-                                        onchange={(event) => {
+                                        onChange={(event) => {
                                             setIntrahepaticCalcificationLeftorRight(
                                                 event.target.value
                                             );
@@ -420,7 +445,7 @@ const Liver = () => {
                                             />
                                         }
                                         label="右葉"
-                                        onchange={(event) => {
+                                        onChange={(event) => {
                                             setIntrahepaticCalcificationLeftorRight(
                                                 event.target.value
                                             );
@@ -432,16 +457,20 @@ const Liver = () => {
                     </tr>
 
                     <tr>
-                        <td class="tg-0pky">
+                        <td>
                             <Checkbox
                                 checked={liverCancer}
                                 onChange={(event) => {
                                     setLiverCancer(event.target.checked);
                                 }}
+                                onClick={() => {
+                                    setLiverCancer(false);
+                                    setLiverCancerLeftorRight("");
+                                }}
                             />
                             肝腫瘤(疑似肝癌)
                         </td>
-                        <td class="tg-0pky" colspan="2">
+                        <td colspan="2">
                             <FormControl style={{ paddingLeft: 10 }}>
                                 <RadioGroup
                                     row
@@ -465,7 +494,7 @@ const Liver = () => {
                                             />
                                         }
                                         label="左葉"
-                                        onchange={(event) => {
+                                        onChange={(event) => {
                                             setLiverCancerLeftorRight(
                                                 event.target.value
                                             );
@@ -487,7 +516,7 @@ const Liver = () => {
                                             />
                                         }
                                         label="右葉"
-                                        onchange={(event) => {
+                                        onChange={(event) => {
                                             setLiverCancerLeftorRight(
                                                 event.target.value
                                             );
@@ -499,16 +528,20 @@ const Liver = () => {
                     </tr>
 
                     <tr>
-                        <td class="tg-0pky">
+                        <td>
                             <Checkbox
                                 checked={liverCancerUnknown}
                                 onChange={(event) => {
                                     setLiverCancerUnknown(event.target.checked);
                                 }}
+                                onClick={() => {
+                                    setLiverCancerUnknown(false);
+                                    setLiverCancerUnknownLeftorRight("");
+                                }}
                             />
                             肝腫瘤(性質不明)
                         </td>
-                        <td class="tg-0pky">
+                        <td>
                             <FormControl style={{ paddingLeft: 10 }}>
                                 <RadioGroup
                                     row
@@ -532,7 +565,7 @@ const Liver = () => {
                                             />
                                         }
                                         label="左葉"
-                                        onchange={(event) => {
+                                        onChange={(event) => {
                                             setLiverCancerUnknownLeftorRight(
                                                 event.target.value
                                             );
@@ -554,7 +587,7 @@ const Liver = () => {
                                             />
                                         }
                                         label="右葉"
-                                        onchange={(event) => {
+                                        onChange={(event) => {
                                             setLiverCancerUnknownLeftorRight(
                                                 event.target.value
                                             );
@@ -563,7 +596,7 @@ const Liver = () => {
                                 </RadioGroup>
                             </FormControl>
                         </td>
-                        <td class="tg-0pky"></td>
+                        <td></td>
                     </tr>
                 </thead>
             </table>
