@@ -5,6 +5,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Liver from "./component/Liver";
+import { GiLiver } from "react-icons/gi";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -41,7 +42,9 @@ function a11yProps(index) {
 
 export default function App() {
     const [value, setValue] = React.useState(0);
+    const [liverForm, setLiverForm] = React.useState(""); //接收Liver回傳props
 
+    console.log(liverForm);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -52,7 +55,6 @@ export default function App() {
                 flexGrow: 1,
                 bgcolor: "background.paper",
                 display: "flex",
-                height: 224,
             }}
         >
             <Tabs
@@ -61,18 +63,22 @@ export default function App() {
                 value={value}
                 onChange={handleChange}
                 aria-label="Vertical tabs example"
-                sx={{ borderRight: 1, borderColor: "divider" }}
+                sx={{
+                    borderRight: 2,
+                    borderColor: "divider",
+                    minWidth: "15%",
+                    
+                }}
             >
-                <Tab label="Item One" {...a11yProps(0)} />
-                <Tab label="Item Two" {...a11yProps(1)} />
-                <Tab label="Item Three" {...a11yProps(2)} />
-                <Tab label="Item Four" {...a11yProps(3)} />
-                <Tab label="Item Five" {...a11yProps(4)} />
-                <Tab label="Item Six" {...a11yProps(5)} />
-                <Tab label="Item Seven" {...a11yProps(6)} />
+                <Tab icon={<GiLiver/>} iconPosition="start" label="肝臟" {...a11yProps(0)} sx={{ fontSize: 30 }} />
+                <Tab label="膽囊" {...a11yProps(1)} sx={{ fontSize: 30 }}/>
+                <Tab label="腎臟" {...a11yProps(2)} sx={{ fontSize: 30 }}/>
+                <Tab label="胰臟" {...a11yProps(3)} sx={{ fontSize: 30 }}/>
+                <Tab label="脾臟" {...a11yProps(4)} sx={{ fontSize: 30 }}/>
+                <Tab label="建議" {...a11yProps(5)} sx={{ fontSize: 30 }}/>
             </Tabs>
             <TabPanel value={value} index={0}>
-                <Liver />
+                <Liver liverForm={liverForm} setLiverForm={setLiverForm} />
             </TabPanel>
             <TabPanel value={value} index={1}>
                 Item Two
@@ -88,9 +94,6 @@ export default function App() {
             </TabPanel>
             <TabPanel value={value} index={5}>
                 Item Six
-            </TabPanel>
-            <TabPanel value={value} index={6}>
-                Item Seven
             </TabPanel>
         </Box>
     );

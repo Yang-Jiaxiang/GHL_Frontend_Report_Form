@@ -6,35 +6,72 @@ import {
     Radio,
     FormControlLabel,
     TextareaAutosize,
+    Button,
 } from "@mui/material";
 import { red, green, blue } from "@mui/material/colors";
+import SendIcon from "@mui/icons-material/Send";
 
-const Liver = () => {
+const Liver = (props) => {
+    const setLiverForm=props.setLiverForm;
     const [normal, setNormal] = useState(true); //正常
     const [FLD, setFLD] = useState(false); //脂肪肝
-    const [FLDLevel, setFLDLevel] = useState(""); //脂肪肝等級 1輕度 2中度 3重度
+    const [FLDLevel, setFLDLevel] = useState(); //脂肪肝等級 1輕度 2中度 3重度
     const [suspectedLiverLesions, setSuspectedLiverLesions] = useState(false); //疑似肝實質病變
     const [liverLesions, setLiverLesions] = useState(false); //肝實質病變
     const [liverCirrohsis, setLiverCirrohsis] = useState(false); //肝硬化
     const [liverHepaticCyst, setLiverHepaticCyst] = useState(false); //肝囊腫
     const [liverHepaticCystLeftorRight, setLiverHepaticCystLeftorRight] =
-        useState(""); //肝囊腫左或右
+        useState(); //肝囊腫左或右
     const [angiomas, setAngiomas] = useState(false); //血管瘤
-    const [angiomasLeftorRight, setAngiomasLeftorRight] = useState(""); //血管瘤左或右
+    const [angiomasLeftorRight, setAngiomasLeftorRight] = useState(); //血管瘤左或右
 
     const [intrahepaticCalcification, setIntrahepaticCalcification] =
         useState(false); //肝內鈣化點
     const [
         intrahepaticCalcificationLeftorRight,
         setIntrahepaticCalcificationLeftorRight,
-    ] = useState(""); //肝內鈣化點左或右
+    ] = useState(); //肝內鈣化點左或右
     const [liverCancer, setLiverCancer] = useState(false); //肝腫瘤癌症
-    const [liverCancerLeftorRight, setLiverCancerLeftorRight] = useState(""); //肝腫瘤癌症左或右
+    const [liverCancerLeftorRight, setLiverCancerLeftorRight] = useState(); //肝腫瘤癌症左或右
     const [liverCancerUnknown, setLiverCancerUnknown] = useState(false); //肝腫瘤不明
     const [liverCancerUnknownLeftorRight, setLiverCancerUnknownLeftorRight] =
-        useState(""); //肝腫瘤不明左或右
+        useState(); //肝腫瘤不明左或右
+    const [remark, setRemark] = useState(); //其他
 
-    const [remark, setRemark] = useState(""); //其他
+    var LiverForm = `{"resource":"Liver"`;
+    function PushLiverForm() {
+        if(FLDLevel){
+            LiverForm+=(`,"FLDLevel":"${FLDLevel}"`)
+        }
+        if(suspectedLiverLesions){
+            LiverForm+=(`,"suspectedLiverLesions":"${suspectedLiverLesions}"`)
+        }
+        if(liverLesions){
+            LiverForm+=(`,"liverLesions":"${liverLesions}"`)
+        }
+        if(liverCirrohsis){
+            LiverForm+=(`,"liverCirrohsis":"${liverCirrohsis}"`)
+        }
+        if(liverHepaticCystLeftorRight){
+            LiverForm+=(`,"liverHepaticCystLeftorRight":"${liverHepaticCystLeftorRight}"`)
+        }
+        if(angiomasLeftorRight){
+            LiverForm+=(`,"angiomasLeftorRight":"${angiomasLeftorRight}"`)
+        }
+        if(intrahepaticCalcificationLeftorRight){
+            LiverForm+=(`,"intrahepaticCalcificationLeftorRight":"${intrahepaticCalcificationLeftorRight}"`)
+        }
+        if(liverCancerLeftorRight){
+            LiverForm+=(`,"liverCancerLeftorRight":"${liverCancerLeftorRight}"`)
+        }
+        if(liverCancerUnknownLeftorRight){
+            LiverForm+=(`,"liverCancerUnknownLeftorRight":"${liverCancerUnknownLeftorRight}"`)
+        }
+        if(remark){
+            LiverForm+=(`,"remark":"${remark}"`)
+        }
+        LiverForm+=(`}`)
+    }
 
     //脂肪肝前方Checkbox辨識
     function FLDLevelhandleClick(event) {
@@ -268,7 +305,7 @@ const Liver = () => {
                                     value={liverHepaticCystLeftorRight}
                                 >
                                     <FormControlLabel
-                                        value="Left"
+                                        value="左葉"
                                         control={
                                             <Radio
                                                 sx={{
@@ -290,7 +327,7 @@ const Liver = () => {
                                         label="左葉"
                                     />
                                     <FormControlLabel
-                                        value="Right"
+                                        value="右葉"
                                         control={
                                             <Radio
                                                 sx={{
@@ -339,7 +376,7 @@ const Liver = () => {
                                     value={angiomasLeftorRight}
                                 >
                                     <FormControlLabel
-                                        value="Left"
+                                        value="左葉"
                                         control={
                                             <Radio
                                                 sx={{
@@ -359,7 +396,7 @@ const Liver = () => {
                                         }}
                                     />
                                     <FormControlLabel
-                                        value="Right"
+                                        value="右葉"
                                         control={
                                             <Radio
                                                 sx={{
@@ -600,6 +637,17 @@ const Liver = () => {
                     </tr>
                 </thead>
             </table>
+
+            <Button
+                variant="contained"
+                endIcon={<SendIcon />}
+                onClick={() => {
+                    PushLiverForm()
+                    setLiverForm(LiverForm)
+                }}
+            >
+                Send
+            </Button>
         </>
     );
 };
