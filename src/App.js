@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Liver from "./component/Liver";
 import Gallbladder from "./component/Gallbladder";
+import Kidney from "./component/Kidney";
 import { GiLiver } from "react-icons/gi";
 
 function TabPanel(props) {
@@ -47,7 +48,12 @@ export default function App() {
     const [gallbladderForm, setGallbladderForm] = React.useState({
         resource: "Gallbladder",
     });
-    console.log(`APP liverForm : ${JSON.stringify(liverForm)},${JSON.stringify(gallbladderForm)}`);
+    const [kidneyForm, setKidneyForm] = React.useState({ resource: "Kidney" });
+
+    console.log(
+        `APP liverForm : ${JSON.stringify(liverForm)},${JSON.stringify(
+            gallbladderForm)},${JSON.stringify(kidneyForm)}`
+    );
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -87,7 +93,7 @@ export default function App() {
                 <Tab label="建議" {...a11yProps(5)} sx={{ fontSize: 30 }} />
             </Tabs>
 
-            <Box sx={{width:1}}>
+            <Box sx={{ width: 1 }}>
                 <TabPanel value={value} index={0}>
                     <Liver liverForm={liverForm} setLiverForm={setLiverForm} />
                 </TabPanel>
@@ -98,7 +104,8 @@ export default function App() {
                     />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    Item Three
+                    <Kidney kidneyForm={kidneyForm}
+                    setKidneyForm={setKidneyForm} />
                 </TabPanel>
                 <TabPanel value={value} index={3}>
                     Item Four

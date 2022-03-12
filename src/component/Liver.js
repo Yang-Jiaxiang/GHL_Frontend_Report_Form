@@ -195,11 +195,6 @@ const Liver = (props) => {
         setLiverForm(delNullProperty(LiverFormJson));
     }
 
-    //將表單返回給父組件LiverForm
-    function pushLiverForm() {
-        delNullProperty();
-        setLiverForm();
-    }
 
     return (
         <Box>
