@@ -86,10 +86,10 @@ const Gallbladder = (props) => {
 
     return (
         <Box>
-            {gallbladderFormJson.resource}
-            <table border="1" width="100%">
+            <table width="100%">
                 <tbody>
                     <tr>
+                        <td rowspan={3} width="10%">膽囊</td>
                         <td rowSpan={3} width="10%">
                             <Checkbox />
                             正常

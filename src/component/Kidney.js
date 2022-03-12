@@ -96,9 +96,9 @@ const Kidney = (props) => {
 
     return (
         <Box>
-            {kidneyFormJSON.resource}
-            <table border="1" width="100%">
+            <table  width="100%">
                 <tr>
+                    <td rowSpan={4} width="10%">腎臟</td>
                     <td rowSpan={4} width="10%">
                         <Checkbox />
                         正常

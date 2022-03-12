@@ -93,13 +93,7 @@ export default function App() {
                     minWidth: "15%",
                 }}
             >
-                <Tab
-                    icon={<GiLiver />}
-                    iconPosition="start"
-                    label="肝臟"
-                    {...a11yProps(0)}
-                    sx={{ fontSize: 30 }}
-                />
+                <Tab label="肝臟" {...a11yProps(0)} sx={{ fontSize: 30 }} />
                 <Tab label="膽囊" {...a11yProps(1)} sx={{ fontSize: 30 }} />
                 <Tab label="腎臟" {...a11yProps(2)} sx={{ fontSize: 30 }} />
                 <Tab label="胰臟" {...a11yProps(3)} sx={{ fontSize: 30 }} />
@@ -156,13 +150,13 @@ export default function App() {
                         pancreasForm={pancreasForm}
                         setPancreasForm={setPancreasForm}
                     />
-                    <Suggestion
-                        suggestionForm={suggestionForm}
-                        setSuggestionForm={setSuggestionForm}
-                    />
                     <Spleen
                         spleenForm={spleenForm}
                         setSpleenForm={setSpleenForm}
+                    />
+                    <Suggestion
+                        suggestionForm={suggestionForm}
+                        setSuggestionForm={setSuggestionForm}
                     />
                 </TabPanel>
             </Box>

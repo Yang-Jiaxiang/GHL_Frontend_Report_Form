@@ -198,10 +198,10 @@ const Liver = (props) => {
 
     return (
         <Box>
-            {LiverFormJson.resource}
-            <table border={1} width="100%">
+            <table  width="100%">
                 <tbody>
                     <tr>
+                        <td rowSpan={9} width="10%">肝臟</td>
                         <td rowSpan={9} width="10%">
                             <Checkbox
                                 checked={normal}

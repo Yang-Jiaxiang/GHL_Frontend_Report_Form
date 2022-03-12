@@ -17,9 +17,9 @@ const Pancreas = (props) => {
 
     return (
         <Box>
-            {pancreasFormJson.resource}
-            <table border="1" width="100%">
+            <table  width="100%">
                 <tr>
+                    <td width="10%">胰臟</td>
                     <td width="10%">
                         <Checkbox />
                         正常

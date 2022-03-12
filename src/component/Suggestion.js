@@ -55,10 +55,10 @@ const Suggestion = (props) => {
 
     return (
         <Box>
-            {suggestionFormJson.resource}
-            <table border="1" width="100%">
+            <table  width="100%">
                 <tbody>
                     <tr>
+                        <td rowSpan={3} width="10%">建議</td>
                         <td>
                             <Checkbox
                                 checked={check}

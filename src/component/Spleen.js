@@ -27,9 +27,9 @@ const Spleen = (props) => {
     }, []);
     return (
         <Box>
-            {spleenFormJson.resource}
-            <table border="1" width="100%">
+            <table width="100%">
                 <tr>
+                    <td width="10%">脾臟</td>
                     <td width="10%">
                         <Checkbox />
                         正常
