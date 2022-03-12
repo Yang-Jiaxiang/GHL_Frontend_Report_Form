@@ -5,6 +5,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Liver from "./component/Liver";
+import Gallbladder from "./component/Gallbladder";
 import { GiLiver } from "react-icons/gi";
 
 function TabPanel(props) {
@@ -42,9 +43,12 @@ function a11yProps(index) {
 
 export default function App() {
     const [value, setValue] = React.useState(0);
-    const [liverForm, setLiverForm] = React.useState(""); //接收Liver回傳props
+    const [liverForm, setLiverForm] = React.useState({ resource: "Liver" }); //接收Liver回傳props
+    const [gallbladderForm, setGallbladderForm] = React.useState({
+        resource: "Gallbladder",
+    });
+    console.log(`APP liverForm : ${JSON.stringify(liverForm)},${JSON.stringify(gallbladderForm)}`);
 
-    console.log(liverForm);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -67,34 +71,45 @@ export default function App() {
                     borderRight: 2,
                     borderColor: "divider",
                     minWidth: "15%",
-                    
                 }}
             >
-                <Tab icon={<GiLiver/>} iconPosition="start" label="肝臟" {...a11yProps(0)} sx={{ fontSize: 30 }} />
-                <Tab label="膽囊" {...a11yProps(1)} sx={{ fontSize: 30 }}/>
-                <Tab label="腎臟" {...a11yProps(2)} sx={{ fontSize: 30 }}/>
-                <Tab label="胰臟" {...a11yProps(3)} sx={{ fontSize: 30 }}/>
-                <Tab label="脾臟" {...a11yProps(4)} sx={{ fontSize: 30 }}/>
-                <Tab label="建議" {...a11yProps(5)} sx={{ fontSize: 30 }}/>
+                <Tab
+                    icon={<GiLiver />}
+                    iconPosition="start"
+                    label="肝臟"
+                    {...a11yProps(0)}
+                    sx={{ fontSize: 30 }}
+                />
+                <Tab label="膽囊" {...a11yProps(1)} sx={{ fontSize: 30 }} />
+                <Tab label="腎臟" {...a11yProps(2)} sx={{ fontSize: 30 }} />
+                <Tab label="胰臟" {...a11yProps(3)} sx={{ fontSize: 30 }} />
+                <Tab label="脾臟" {...a11yProps(4)} sx={{ fontSize: 30 }} />
+                <Tab label="建議" {...a11yProps(5)} sx={{ fontSize: 30 }} />
             </Tabs>
-            <TabPanel value={value} index={0}>
-                <Liver liverForm={liverForm} setLiverForm={setLiverForm} />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-                Item Two
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-                Item Three
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-                Item Four
-            </TabPanel>
-            <TabPanel value={value} index={4}>
-                Item Five
-            </TabPanel>
-            <TabPanel value={value} index={5}>
-                Item Six
-            </TabPanel>
+
+            <Box sx={{width:1}}>
+                <TabPanel value={value} index={0}>
+                    <Liver liverForm={liverForm} setLiverForm={setLiverForm} />
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                    <Gallbladder
+                        gallbladderForm={gallbladderForm}
+                        setGallbladderForm={setGallbladderForm}
+                    />
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                    Item Three
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                    Item Four
+                </TabPanel>
+                <TabPanel value={value} index={4}>
+                    Item Five
+                </TabPanel>
+                <TabPanel value={value} index={5}>
+                    Item Six
+                </TabPanel>
+            </Box>
         </Box>
     );
 }

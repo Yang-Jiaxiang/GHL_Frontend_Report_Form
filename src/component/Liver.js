@@ -6,93 +6,136 @@ import {
     Radio,
     FormControlLabel,
     TextareaAutosize,
-    Button,
+    Box,
 } from "@mui/material";
 import { red, green, blue } from "@mui/material/colors";
 import SendIcon from "@mui/icons-material/Send";
+import delNullProperty from "./delNullProperty";
 
 const Liver = (props) => {
-    const setLiverForm=props.setLiverForm;
+    const setLiverForm = props.setLiverForm;
+    const LiverFormJson = props.liverForm;
+
     const [normal, setNormal] = useState(true); //正常
     const [FLD, setFLD] = useState(false); //脂肪肝
-    const [FLDLevel, setFLDLevel] = useState(); //脂肪肝等級 1輕度 2中度 3重度
+    const [FLDLevel, setFLDLevel] = useState(""); //脂肪肝等級 1輕度 2中度 3重度
     const [suspectedLiverLesions, setSuspectedLiverLesions] = useState(false); //疑似肝實質病變
     const [liverLesions, setLiverLesions] = useState(false); //肝實質病變
     const [liverCirrohsis, setLiverCirrohsis] = useState(false); //肝硬化
     const [liverHepaticCyst, setLiverHepaticCyst] = useState(false); //肝囊腫
     const [liverHepaticCystLeftorRight, setLiverHepaticCystLeftorRight] =
-        useState(); //肝囊腫左或右
+        useState(""); //肝囊腫左或右
     const [angiomas, setAngiomas] = useState(false); //血管瘤
-    const [angiomasLeftorRight, setAngiomasLeftorRight] = useState(); //血管瘤左或右
+    const [angiomasLeftorRight, setAngiomasLeftorRight] = useState(""); //血管瘤左或右
 
     const [intrahepaticCalcification, setIntrahepaticCalcification] =
         useState(false); //肝內鈣化點
     const [
         intrahepaticCalcificationLeftorRight,
         setIntrahepaticCalcificationLeftorRight,
-    ] = useState(); //肝內鈣化點左或右
+    ] = useState(""); //肝內鈣化點左或右
     const [liverCancer, setLiverCancer] = useState(false); //肝腫瘤癌症
-    const [liverCancerLeftorRight, setLiverCancerLeftorRight] = useState(); //肝腫瘤癌症左或右
+    const [liverCancerLeftorRight, setLiverCancerLeftorRight] = useState(""); //肝腫瘤癌症左或右
     const [liverCancerUnknown, setLiverCancerUnknown] = useState(false); //肝腫瘤不明
     const [liverCancerUnknownLeftorRight, setLiverCancerUnknownLeftorRight] =
-        useState(); //肝腫瘤不明左或右
-    const [remark, setRemark] = useState(); //其他
+        useState(""); //肝腫瘤不明左或右
+    const [remark, setRemark] = useState(""); //其他
 
-    var LiverForm = `{"resource":"Liver"`;
-    function PushLiverForm() {
-        if(FLDLevel){
-            LiverForm+=(`,"FLDLevel":"${FLDLevel}"`)
+    useEffect(() => {
+        //渲染資料
+        //脂肪肝
+        if (LiverFormJson.FLDLevel === undefined) {
+            setFLDLevel("");
+        } else {
+            setFLD(true);
+            setFLDLevel(LiverFormJson.FLDLevel);
         }
-        if(suspectedLiverLesions){
-            LiverForm+=(`,"suspectedLiverLesions":"${suspectedLiverLesions}"`)
+        //疑似肝實質病變
+        if (LiverFormJson.SuspectedLiverLesions !== undefined) {
+            setSuspectedLiverLesions(true);
         }
-        if(liverLesions){
-            LiverForm+=(`,"liverLesions":"${liverLesions}"`)
+        //肝實質病變
+        if (LiverFormJson.LiverLesions !== undefined) {
+            setLiverLesions(true);
         }
-        if(liverCirrohsis){
-            LiverForm+=(`,"liverCirrohsis":"${liverCirrohsis}"`)
+        //肝硬化
+        if (LiverFormJson.LiverCirrohsis !== undefined) {
+            setLiverCirrohsis(true);
         }
-        if(liverHepaticCystLeftorRight){
-            LiverForm+=(`,"liverHepaticCystLeftorRight":"${liverHepaticCystLeftorRight}"`)
+        //肝囊腫
+        if (LiverFormJson.LiverHepaticCystLeftorRight === undefined) {
+            setLiverHepaticCystLeftorRight("");
+        } else {
+            setLiverHepaticCyst(true);
+            setLiverHepaticCystLeftorRight(
+                LiverFormJson.LiverHepaticCystLeftorRight
+            );
         }
-        if(angiomasLeftorRight){
-            LiverForm+=(`,"angiomasLeftorRight":"${angiomasLeftorRight}"`)
+        //血管瘤
+        if (LiverFormJson.AngiomasLeftorRight === undefined) {
+            setAngiomasLeftorRight("");
+        } else {
+            setAngiomas(true);
+            setAngiomasLeftorRight(LiverFormJson.AngiomasLeftorRight);
         }
-        if(intrahepaticCalcificationLeftorRight){
-            LiverForm+=(`,"intrahepaticCalcificationLeftorRight":"${intrahepaticCalcificationLeftorRight}"`)
+        //肝內鈣化點
+        if (LiverFormJson.IntrahepaticCalcificationLeftorRight === undefined) {
+            setIntrahepaticCalcificationLeftorRight("");
+        } else {
+            setIntrahepaticCalcification(true);
+            setIntrahepaticCalcificationLeftorRight(
+                LiverFormJson.IntrahepaticCalcificationLeftorRight
+            );
         }
-        if(liverCancerLeftorRight){
-            LiverForm+=(`,"liverCancerLeftorRight":"${liverCancerLeftorRight}"`)
+        //肝腫瘤(疑似肝癌)
+        if (LiverFormJson.LiverCancerLeftorRight === undefined) {
+            setLiverCancerLeftorRight("");
+        } else {
+            setLiverCancer(true);
+            setLiverCancerLeftorRight(LiverFormJson.LiverCancerLeftorRight);
         }
-        if(liverCancerUnknownLeftorRight){
-            LiverForm+=(`,"liverCancerUnknownLeftorRight":"${liverCancerUnknownLeftorRight}"`)
+        //肝腫瘤(性質不明)
+        if (LiverFormJson.LiverCancerUnknownLeftorRight === undefined) {
+            setLiverCancerUnknownLeftorRight("");
+        } else {
+            setLiverCancerUnknown(true);
+            setLiverCancerUnknownLeftorRight(
+                LiverFormJson.LiverCancerUnknownLeftorRight
+            );
         }
-        if(remark){
-            LiverForm+=(`,"remark":"${remark}"`)
+        if (LiverFormJson.Remark === undefined) {
+            setRemark("");
+        } else {
+            setRemark(LiverFormJson.Remark);
         }
-        LiverForm+=(`}`)
-    }
+    }, []);
 
     //脂肪肝前方Checkbox辨識
     function FLDLevelhandleClick(event) {
         if (event.target.value === FLDLevel) {
             setFLDLevel("");
             setFLD(false);
+            LiverFormJson.FLDLevel = "";
         } else {
             setFLDLevel(event.target.value);
             setFLD(true);
+            LiverFormJson.FLDLevel = event.target.value;
         }
-    }
 
+        setLiverForm(delNullProperty(LiverFormJson));
+    }
     //肝囊腫前方Checkbox辨識
     function liverHepaticCysthandleClick(event) {
         if (event.target.value === liverHepaticCystLeftorRight) {
             setLiverHepaticCystLeftorRight("");
             setLiverHepaticCyst(false);
+            LiverFormJson.LiverHepaticCystLeftorRight = "";
         } else {
             setLiverHepaticCystLeftorRight(event.target.value);
             setLiverHepaticCyst(true);
+            LiverFormJson.LiverHepaticCystLeftorRight = event.target.value;
         }
+        setLiverForm(delNullProperty(LiverFormJson));
     }
 
     //血管瘤前方Checkbox辨識
@@ -100,10 +143,13 @@ const Liver = (props) => {
         if (event.target.value === angiomasLeftorRight) {
             setAngiomasLeftorRight("");
             setAngiomas(false);
+            LiverFormJson.AngiomasLeftorRight = "";
         } else {
             setAngiomasLeftorRight(event.target.value);
             setAngiomas(true);
+            LiverFormJson.AngiomasLeftorRight = event.target.value;
         }
+        setLiverForm(delNullProperty(LiverFormJson));
     }
 
     //肝內鈣化點前方Checkbox辨識
@@ -111,10 +157,14 @@ const Liver = (props) => {
         if (event.target.value === intrahepaticCalcificationLeftorRight) {
             setIntrahepaticCalcificationLeftorRight("");
             setIntrahepaticCalcification(false);
+            LiverFormJson.IntrahepaticCalcificationLeftorRight = "";
         } else {
             setIntrahepaticCalcificationLeftorRight(event.target.value);
             setIntrahepaticCalcification(true);
+            LiverFormJson.IntrahepaticCalcificationLeftorRight =
+                event.target.value;
         }
+        setLiverForm(delNullProperty(LiverFormJson));
     }
 
     //肝腫瘤癌症前方Checkbox辨識
@@ -122,10 +172,13 @@ const Liver = (props) => {
         if (event.target.value === liverCancerLeftorRight) {
             setLiverCancerLeftorRight("");
             setLiverCancer(false);
+            LiverFormJson.LiverCancerLeftorRight = "";
         } else {
             setLiverCancerLeftorRight(event.target.value);
             setLiverCancer(true);
+            LiverFormJson.LiverCancerLeftorRight = event.target.value;
         }
+        setLiverForm(delNullProperty(LiverFormJson));
     }
 
     //肝腫瘤不明前方Checkbox辨識
@@ -133,18 +186,28 @@ const Liver = (props) => {
         if (event.target.value === liverCancerUnknownLeftorRight) {
             setLiverCancerUnknownLeftorRight("");
             setLiverCancerUnknown(false);
+            LiverFormJson.LiverCancerUnknownLeftorRight = "";
         } else {
             setLiverCancerUnknownLeftorRight(event.target.value);
             setLiverCancerUnknown(true);
+            LiverFormJson.LiverCancerUnknownLeftorRight = event.target.value;
         }
+        setLiverForm(delNullProperty(LiverFormJson));
+    }
+
+    //將表單返回給父組件LiverForm
+    function pushLiverForm() {
+        delNullProperty();
+        setLiverForm();
     }
 
     return (
-        <>
-            <table border="1">
-                <thead>
+        <Box>
+            {LiverFormJson.resource}
+            <table border={1} width="100%">
+                <tbody>
                     <tr>
-                        <td rowspan="9">
+                        <td rowSpan={9} width="10%">
                             <Checkbox
                                 checked={normal}
                                 onChange={(event) => {
@@ -153,7 +216,7 @@ const Liver = (props) => {
                             />
                             正常
                         </td>
-                        <td colspan="2">
+                        <td colSpan={2}>
                             <Checkbox
                                 checked={FLD}
                                 onChange={(event) => {
@@ -162,6 +225,12 @@ const Liver = (props) => {
                                 onClick={() => {
                                     setFLDLevel("");
                                     setFLD(false);
+                                    LiverFormJson.FLDLevel = "";
+                                    setLiverForm(
+                                        delNullProperty(
+                                            delNullProperty(LiverFormJson)
+                                        )
+                                    );
                                 }}
                             />
                             脂肪肝
@@ -229,28 +298,42 @@ const Liver = (props) => {
                                 </RadioGroup>
                             </FormControl>
                         </td>
-                        <td rowspan="4">
-                            <p>其他：</p>
+                        <td rowSpan={4}>
                             <TextareaAutosize
                                 aria-label="minimum height"
                                 minRows={7}
-                                placeholder="Minimum 3 rows"
-                                style={{ width: 200 }}
+                                placeholder="其他："
+                                style={{ width: "95%" }}
                                 value={remark}
                                 onChange={(event) => {
                                     setRemark(event.target.value);
+                                    LiverFormJson.Remark = event.target.value;
+                                    setLiverForm(
+                                        delNullProperty(LiverFormJson)
+                                    );
                                 }}
                             />
                         </td>
                     </tr>
 
+                    {/*疑似肝實質病變*/}
                     <tr>
-                        <td colspan="2">
+                        <td colSpan={2}>
                             <Checkbox
                                 checked={suspectedLiverLesions}
                                 onChange={(event) => {
                                     setSuspectedLiverLesions(
                                         event.target.checked
+                                    );
+
+                                    if (event.target.checked) {
+                                        LiverFormJson.SuspectedLiverLesions = true;
+                                    } else {
+                                        LiverFormJson.SuspectedLiverLesions =
+                                            "";
+                                    }
+                                    setLiverForm(
+                                        delNullProperty(LiverFormJson)
                                     );
                                 }}
                             />
@@ -258,30 +341,50 @@ const Liver = (props) => {
                         </td>
                     </tr>
 
+                    {/*肝實質病變*/}
                     <tr>
-                        <td colspan="2">
+                        <td colSpan={2}>
                             <Checkbox
                                 checked={liverLesions}
                                 onChange={(event) => {
                                     setLiverLesions(event.target.checked);
+                                    if (event.target.checked) {
+                                        LiverFormJson.LiverLesions = true;
+                                    } else {
+                                        LiverFormJson.LiverLesions = "";
+                                    }
+                                    setLiverForm(
+                                        delNullProperty(LiverFormJson)
+                                    );
                                 }}
                             />
                             肝實質病變
                         </td>
                     </tr>
 
+                    {/*肝硬化*/}
                     <tr>
-                        <td colspan="2">
+                        <td colSpan={2}>
                             <Checkbox
                                 checked={liverCirrohsis}
                                 onChange={(event) => {
                                     setLiverCirrohsis(event.target.checked);
+
+                                    if (event.target.checked) {
+                                        LiverFormJson.LiverCirrohsis = true;
+                                    } else {
+                                        LiverFormJson.LiverCirrohsis = "";
+                                    }
+                                    setLiverForm(
+                                        delNullProperty(LiverFormJson)
+                                    );
                                 }}
                             />
                             肝硬化
                         </td>
                     </tr>
 
+                    {/*肝囊腫*/}
                     <tr>
                         <td>
                             <Checkbox
@@ -292,11 +395,16 @@ const Liver = (props) => {
                                 onClick={() => {
                                     setLiverHepaticCyst(false);
                                     setLiverHepaticCystLeftorRight("");
+                                    LiverFormJson.LiverHepaticCystLeftorRight =
+                                        "";
+                                    setLiverForm(
+                                        delNullProperty(LiverFormJson)
+                                    );
                                 }}
                             />
                             肝囊腫
                         </td>
-                        <td colspan="2">
+                        <td colSpan={2}>
                             <FormControl style={{ paddingLeft: 10 }}>
                                 <RadioGroup
                                     row
@@ -353,6 +461,7 @@ const Liver = (props) => {
                         </td>
                     </tr>
 
+                    {/*血管瘤*/}
                     <tr>
                         <td>
                             <Checkbox
@@ -363,11 +472,15 @@ const Liver = (props) => {
                                 onClick={() => {
                                     setAngiomasLeftorRight("");
                                     setAngiomas(false);
+                                    LiverFormJson.AngiomasLeftorRight = "";
+                                    setLiverForm(
+                                        delNullProperty(LiverFormJson)
+                                    );
                                 }}
                             />
                             血管瘤
                         </td>
-                        <td colspan="2">
+                        <td colSpan={2}>
                             <FormControl style={{ paddingLeft: 10 }}>
                                 <RadioGroup
                                     row
@@ -420,6 +533,7 @@ const Liver = (props) => {
                         </td>
                     </tr>
 
+                    {/*肝內鈣化點*/}
                     <tr>
                         <td>
                             <Checkbox
@@ -432,11 +546,16 @@ const Liver = (props) => {
                                 onClick={() => {
                                     setIntrahepaticCalcification(false);
                                     setIntrahepaticCalcificationLeftorRight("");
+                                    LiverFormJson.IntrahepaticCalcificationLeftorRight =
+                                        "";
+                                    setLiverForm(
+                                        delNullProperty(LiverFormJson)
+                                    );
                                 }}
                             />
                             肝內鈣化點
                         </td>
-                        <td colspan="2">
+                        <td colSpan={2}>
                             <FormControl style={{ paddingLeft: 10 }}>
                                 <RadioGroup
                                     row
@@ -493,6 +612,7 @@ const Liver = (props) => {
                         </td>
                     </tr>
 
+                    {/* 肝腫瘤(疑似肝癌)*/}
                     <tr>
                         <td>
                             <Checkbox
@@ -503,11 +623,15 @@ const Liver = (props) => {
                                 onClick={() => {
                                     setLiverCancer(false);
                                     setLiverCancerLeftorRight("");
+                                    LiverFormJson.LiverCancerLeftorRight = "";
+                                    setLiverForm(
+                                        delNullProperty(LiverFormJson)
+                                    );
                                 }}
                             />
                             肝腫瘤(疑似肝癌)
                         </td>
-                        <td colspan="2">
+                        <td colSpan={2}>
                             <FormControl style={{ paddingLeft: 10 }}>
                                 <RadioGroup
                                     row
@@ -564,6 +688,7 @@ const Liver = (props) => {
                         </td>
                     </tr>
 
+                    {/* 肝腫瘤(性質不明)*/}
                     <tr>
                         <td>
                             <Checkbox
@@ -574,6 +699,11 @@ const Liver = (props) => {
                                 onClick={() => {
                                     setLiverCancerUnknown(false);
                                     setLiverCancerUnknownLeftorRight("");
+                                    LiverFormJson.LiverCancerUnknownLeftorRight =
+                                        "";
+                                    setLiverForm(
+                                        delNullProperty(LiverFormJson)
+                                    );
                                 }}
                             />
                             肝腫瘤(性質不明)
@@ -635,20 +765,17 @@ const Liver = (props) => {
                         </td>
                         <td></td>
                     </tr>
-                </thead>
+                </tbody>
             </table>
 
-            <Button
+            {/* <Button
                 variant="contained"
                 endIcon={<SendIcon />}
-                onClick={() => {
-                    PushLiverForm()
-                    setLiverForm(LiverForm)
-                }}
+                onClick={() => pushLiverForm()}
             >
                 Send
-            </Button>
-        </>
+            </Button> */}
+        </Box>
     );
 };
 export default Liver;
