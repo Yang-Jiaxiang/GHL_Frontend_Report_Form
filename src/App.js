@@ -4,10 +4,14 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import { GiLiver } from "react-icons/gi";
 import Liver from "./component/Liver";
+
 import Gallbladder from "./component/Gallbladder";
 import Kidney from "./component/Kidney";
-import { GiLiver } from "react-icons/gi";
+import Pancreas from "./component/Pancreas";
+import Spleen from "./component/Spleen";
+import Suggestion from "./component/Suggestion";
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -49,10 +53,20 @@ export default function App() {
         resource: "Gallbladder",
     });
     const [kidneyForm, setKidneyForm] = React.useState({ resource: "Kidney" });
+    const [pancreasForm, setPancreasForm] = React.useState({
+        resource: "Pancreas",
+    });
+    const [spleenForm, setSpleenForm] = React.useState({ resource: "Spleen" });
+    const [suggestionForm, setSuggestionForm] = React.useState({
+        resource: "Suggestion",
+    });
 
     console.log(
         `APP liverForm : ${JSON.stringify(liverForm)},${JSON.stringify(
-            gallbladderForm)},${JSON.stringify(kidneyForm)}`
+            gallbladderForm
+        )},${JSON.stringify(kidneyForm)},${JSON.stringify(
+            pancreasForm
+        )},${JSON.stringify(spleenForm)},${JSON.stringify(suggestionForm)}`
     );
 
     const handleChange = (event, newValue) => {
@@ -91,6 +105,7 @@ export default function App() {
                 <Tab label="胰臟" {...a11yProps(3)} sx={{ fontSize: 30 }} />
                 <Tab label="脾臟" {...a11yProps(4)} sx={{ fontSize: 30 }} />
                 <Tab label="建議" {...a11yProps(5)} sx={{ fontSize: 30 }} />
+                <Tab label="完整" {...a11yProps(6)} sx={{ fontSize: 30 }} />
             </Tabs>
 
             <Box sx={{ width: 1 }}>
@@ -104,17 +119,51 @@ export default function App() {
                     />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                    <Kidney kidneyForm={kidneyForm}
-                    setKidneyForm={setKidneyForm} />
+                    <Kidney
+                        kidneyForm={kidneyForm}
+                        setKidneyForm={setKidneyForm}
+                    />
                 </TabPanel>
                 <TabPanel value={value} index={3}>
-                    Item Four
+                    <Pancreas
+                        pancreasForm={pancreasForm}
+                        setPancreasForm={setPancreasForm}
+                    />
                 </TabPanel>
                 <TabPanel value={value} index={4}>
-                    Item Five
+                    <Spleen
+                        spleenForm={spleenForm}
+                        setSpleenForm={setSpleenForm}
+                    />
                 </TabPanel>
                 <TabPanel value={value} index={5}>
-                    Item Six
+                    <Suggestion
+                        suggestionForm={suggestionForm}
+                        setSuggestionForm={setSuggestionForm}
+                    />
+                </TabPanel>
+                <TabPanel value={value} index={6}>
+                    <Liver liverForm={liverForm} setLiverForm={setLiverForm} />
+                    <Gallbladder
+                        gallbladderForm={gallbladderForm}
+                        setGallbladderForm={setGallbladderForm}
+                    />
+                    <Kidney
+                        kidneyForm={kidneyForm}
+                        setKidneyForm={setKidneyForm}
+                    />{" "}
+                    <Pancreas
+                        pancreasForm={pancreasForm}
+                        setPancreasForm={setPancreasForm}
+                    />
+                    <Suggestion
+                        suggestionForm={suggestionForm}
+                        setSuggestionForm={setSuggestionForm}
+                    />
+                    <Spleen
+                        spleenForm={spleenForm}
+                        setSpleenForm={setSpleenForm}
+                    />
                 </TabPanel>
             </Box>
         </Box>
