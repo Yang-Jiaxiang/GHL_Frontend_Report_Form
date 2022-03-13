@@ -15,6 +15,7 @@ import { red, green, blue } from "@mui/material/colors";
 const Kidney = (props) => {
     const kidneyFormJSON = props.kidneyForm;
     const setKidneyForm = props.setKidneyForm;
+    const [normal, setNormal] = useState(true);
     const [remark, setRemark] = useState(""); //其他
     const [kidneyStones, setKidneyStones] = useState(false); //腎結石BANG
     const [kidneyStonesLeftorRight, setKidneyStonesLeftorRight] = useState(""); //腎結石左或右
@@ -25,6 +26,7 @@ const Kidney = (props) => {
         useState(false); //腎腫瘤左或右
 
     useEffect(() => {
+        setNormal(kidneyFormJSON.normal);
         //其他
         if (kidneyFormJSON.Remark === undefined) {
             setRemark("");
@@ -96,11 +98,24 @@ const Kidney = (props) => {
 
     return (
         <Box>
-            <table  width="100%">
+            <table width="100%">
                 <tr>
-                    <td rowSpan={4} width="10%">腎臟</td>
                     <td rowSpan={4} width="10%">
-                        <Checkbox />
+                        腎臟
+                    </td>
+                    <td rowSpan={4} width="10%">
+                        <Checkbox
+                            checked={normal}
+                            onChange={(event) => {
+                                setNormal(event.target.checked);
+                                if (event.target.checked) {
+                                    kidneyFormJSON.normal = true;
+                                } else {
+                                    kidneyFormJSON.normal = false;
+                                }
+                                setKidneyForm(kidneyFormJSON);
+                            }}
+                        />
                         正常
                     </td>
                     <td>

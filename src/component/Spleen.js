@@ -13,9 +13,11 @@ import delNullProperty from "./delNullProperty";
 const Spleen = (props) => {
     const setSpleenForm = props.setSpleenForm;
     const spleenFormJson = props.spleenForm;
+    const [normal, setNormal] = useState(true);
     const [splenomegaly, setSplenomegaly] = useState(false); //脾臟腫大
     const [remark, setRemark] = useState(""); //其他
     useEffect(() => {
+        setNormal(spleenFormJson.normal);
         if (spleenFormJson.Remark === undefined) {
             setRemark("");
         } else {
@@ -31,7 +33,18 @@ const Spleen = (props) => {
                 <tr>
                     <td width="10%">脾臟</td>
                     <td width="10%">
-                        <Checkbox />
+                        <Checkbox
+                            checked={normal}
+                            onChange={(event) => {
+                                setNormal(event.target.checked);
+                                if (event.target.checked) {
+                                    spleenFormJson.normal = true;
+                                } else {
+                                    spleenFormJson.normal = false;
+                                }
+                                setSpleenForm(spleenFormJson);
+                            }}
+                        />
                         正常
                     </td>
                     <td width="20%">

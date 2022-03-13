@@ -11,6 +11,7 @@ import {
 import { red, green, blue } from "@mui/material/colors";
 import SendIcon from "@mui/icons-material/Send";
 import delNullProperty from "./delNullProperty";
+import { Padding } from "@mui/icons-material";
 
 const Liver = (props) => {
     const setLiverForm = props.setLiverForm;
@@ -44,6 +45,7 @@ const Liver = (props) => {
     useEffect(() => {
         //渲染資料
         //脂肪肝
+        setNormal(LiverFormJson.normal);
         if (LiverFormJson.FLDLevel === undefined) {
             setFLDLevel("");
         } else {
@@ -195,18 +197,25 @@ const Liver = (props) => {
         setLiverForm(delNullProperty(LiverFormJson));
     }
 
-
     return (
         <Box>
-            <table  width="100%">
+            <table width="100%">
                 <tbody>
                     <tr>
-                        <td rowSpan={9} width="10%">肝臟</td>
+                        <td rowSpan={9} width="10%">
+                            肝臟
+                        </td>
                         <td rowSpan={9} width="10%">
                             <Checkbox
                                 checked={normal}
                                 onChange={(event) => {
                                     setNormal(event.target.checked);
+                                    if (event.target.checked) {
+                                        LiverFormJson.normal = true;
+                                    } else {
+                                        LiverFormJson.normal = false;
+                                    }
+                                    setLiverForm(LiverFormJson);
                                 }}
                             />
                             正常
@@ -293,10 +302,10 @@ const Liver = (props) => {
                                 </RadioGroup>
                             </FormControl>
                         </td>
-                        <td rowSpan={4}>
+                        <td rowSpan={9} valign="top">
                             <TextareaAutosize
                                 aria-label="minimum height"
-                                minRows={7}
+                                minRows={20}
                                 placeholder="其他："
                                 style={{ width: "95%" }}
                                 value={remark}
@@ -758,7 +767,6 @@ const Liver = (props) => {
                                 </RadioGroup>
                             </FormControl>
                         </td>
-                        <td></td>
                     </tr>
                 </tbody>
             </table>

@@ -17,6 +17,7 @@ const Gallbladder = (props) => {
     const setGallbladderForm = props.setGallbladderForm;
     const gallbladderFormJson = props.gallbladderForm;
 
+    const [normal, setNormal] = useState(true);
     const [gallstones, setGallstones] = useState(false); //膽結石
     const [gallstonesSingleOrMany, setGallstonesSingleOrMany] = useState(""); //膽結石單一或多發
 
@@ -26,6 +27,7 @@ const Gallbladder = (props) => {
     const [remark, setRemark] = useState(""); //其他
 
     useEffect(() => {
+        setNormal(gallbladderFormJson.normal);
         //其他
         if (gallbladderFormJson.Remark === undefined) {
             setRemark("");
@@ -84,14 +86,29 @@ const Gallbladder = (props) => {
         setGallbladderForm(delNullProperty(gallbladderFormJson));
     }
 
+ 
+
     return (
         <Box>
             <table width="100%">
                 <tbody>
                     <tr>
-                        <td rowspan={3} width="10%">膽囊</td>
+                        <td rowspan={3} width="10%">
+                            膽囊
+                        </td>
                         <td rowSpan={3} width="10%">
-                            <Checkbox />
+                        <Checkbox
+                                checked={normal}
+                                onChange={(event) => {
+                                    setNormal(event.target.checked);
+                                    if (event.target.checked) {
+                                        gallbladderFormJson.normal = true;
+                                    } else {
+                                        gallbladderFormJson.normal = false;
+                                    }
+                                    setGallbladderForm(gallbladderFormJson);
+                                }}
+                            />
                             正常
                         </td>
                         <td>

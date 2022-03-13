@@ -5,9 +5,10 @@ import delNullProperty from "./delNullProperty";
 const Pancreas = (props) => {
     const setPancreasForm = props.setPancreasForm;
     const pancreasFormJson = props.pancreasForm;
-
+    const [normal, setNormal] = useState(true);
     const [remark, setRemark] = useState(""); //其他
     useEffect(() => {
+        setNormal(pancreasFormJson.normal);
         if (pancreasFormJson.Remark === undefined) {
             setRemark("");
         } else {
@@ -17,11 +18,22 @@ const Pancreas = (props) => {
 
     return (
         <Box>
-            <table  width="100%">
+            <table width="100%">
                 <tr>
                     <td width="10%">胰臟</td>
                     <td width="10%">
-                        <Checkbox />
+                    <Checkbox
+                                checked={normal}
+                                onChange={(event) => {
+                                    setNormal(event.target.checked);
+                                    if (event.target.checked) {
+                                        pancreasFormJson.normal = true;
+                                    } else {
+                                        pancreasFormJson.normal = false;
+                                    }
+                                    setPancreasForm(pancreasFormJson);
+                                }}
+                            />
                         正常
                     </td>
                     <td>
@@ -34,7 +46,9 @@ const Pancreas = (props) => {
                             onChange={(event) => {
                                 setRemark(event.target.value);
                                 pancreasFormJson.Remark = event.target.value;
-                                setPancreasForm(delNullProperty(pancreasFormJson));
+                                setPancreasForm(
+                                    delNullProperty(pancreasFormJson)
+                                );
                             }}
                         />
                     </td>

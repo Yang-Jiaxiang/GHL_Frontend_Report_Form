@@ -48,17 +48,17 @@ function a11yProps(index) {
 
 export default function App() {
     const [value, setValue] = React.useState(0);
-    const [liverForm, setLiverForm] = React.useState({ resource: "Liver" }); //接收Liver回傳props
+    const [liverForm, setLiverForm] = React.useState({ resource: "Liver",normal:true }); //接收Liver回傳props
     const [gallbladderForm, setGallbladderForm] = React.useState({
-        resource: "Gallbladder",
+        resource: "Gallbladder",normal:true
     });
-    const [kidneyForm, setKidneyForm] = React.useState({ resource: "Kidney" });
+    const [kidneyForm, setKidneyForm] = React.useState({ resource: "Kidney",normal:true });
     const [pancreasForm, setPancreasForm] = React.useState({
-        resource: "Pancreas",
+        resource: "Pancreas",normal:true
     });
-    const [spleenForm, setSpleenForm] = React.useState({ resource: "Spleen" });
+    const [spleenForm, setSpleenForm] = React.useState({ resource: "Spleen",normal:true });
     const [suggestionForm, setSuggestionForm] = React.useState({
-        resource: "Suggestion",
+        resource: "Suggestion",normal:true
     });
 
     console.log(
